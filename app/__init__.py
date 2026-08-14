@@ -16,8 +16,18 @@ def create_app():
     app.config.from_object(config["development"])
 
     # 2. CORS'u etkinleştir
-    CORS(app)
-
+    CORS(
+    app,
+    resources={
+        r"/api/*": {
+            "origins": [
+                "https://3c17df3c-5326-4415-9042-9a79ce38d410.dev.wix-code.com",
+                "https://kabilion-kabilion.editor.wix.com",
+                "https://www.kabilion.com"
+            ]
+        }
+    }
+)
     # 3. Veritabanını başlat
     with app.app_context():
         init_db(app)
